@@ -3,6 +3,7 @@ package be.g00glen00b.model;
 import java.util.Date;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 @Entity
 @Table
@@ -11,8 +12,11 @@ public class Idea {
   @GeneratedValue(strategy = GenerationType.AUTO)
   private long id;
   @Column
+  @NotNull(message = "error.title.notnull")
+  @Size(min = 1, max = 30, message = "error.title.size")
   private String title;
   @Column
+  @Size(max = 100, message = "error.description.size")
   private String description;
   @Column
   private Date createdAt;

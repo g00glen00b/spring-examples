@@ -1,10 +1,13 @@
-package be.g00glen00b.model;
+package be.g00glen00b.controller;
+
 
 import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import be.g00glen00b.model.Idea;
 import be.g00glen00b.repository.IdeaRepository;
 
 @RestController
@@ -19,7 +22,7 @@ public class IdeaController {
   }
   
   @RequestMapping(method = RequestMethod.POST)
-  public Idea add(@RequestBody Idea idea) {
+  public Idea add(@Validated @RequestBody Idea idea) {
     Idea model = new Idea();
     model.setCreatedAt(new Date());
     model.setTitle(idea.getTitle());
@@ -33,7 +36,7 @@ public class IdeaController {
   }
   
   @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-  public Idea update(@PathVariable long id, @RequestBody Idea idea) {
+  public Idea update(@PathVariable long id, @Validated @RequestBody Idea idea) {
     Idea model = repository.findOne(id);
     if (model != null) {
       model.setTitle(idea.getTitle());
